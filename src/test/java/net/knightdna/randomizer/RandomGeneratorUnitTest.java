@@ -1,12 +1,12 @@
 package net.knightdna.randomizer;
 
+import net.knightdna.wrapper.WrappedArray;
 import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
@@ -71,7 +71,7 @@ public class RandomGeneratorUnitTest {
                 14.986648846942591
         };
 
-        Double[] generatedItems = toWrappedDoubles(
+        Double[] generatedItems = WrappedArray.of(
                 RandomGenerator.generateArrayOfDoublesWithSpecifiedSum(random, arraySize, sumOfArray));
 
         assertThat(generatedItems, is(notNullValue()));
@@ -103,12 +103,6 @@ public class RandomGeneratorUnitTest {
 
         assertThat(generatedDouble, is(notNullValue()));
         assertThat(generatedDouble, is(equalTo(validDouble)));
-    }
-
-    private static Double[] toWrappedDoubles(double[] primitiveDoubles) {
-        return Arrays.stream(primitiveDoubles)
-                .boxed()
-                .toArray(Double[]::new);
     }
 
     private static Matcher<Double[]> isEqualTo(Double[] items) {
